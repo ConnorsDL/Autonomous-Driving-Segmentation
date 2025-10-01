@@ -1,0 +1,29 @@
+# Example configuration for training the autonomous driving segmentation model.
+
+data:
+  train_dir: data/train
+  val_dir: data/val
+  image_size: [512, 512]
+  batch_size: 4
+  num_workers: 4
+  augmentations: true
+  # class_map can be used to remap raw mask pixel values to contiguous class indices.
+  # class_map:
+  #   0: 0  # background
+  #   255: 1  # vehicle class
+
+model:
+  in_channels: 3
+  num_classes: 2
+  features: [64, 128, 256, 512]
+
+training:
+  epochs: 50
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  device: cuda
+  mixed_precision: true
+  checkpoint_dir: checkpoints
+  val_interval: 1
+  grad_clip: 1.0
+  ignore_index: 255
